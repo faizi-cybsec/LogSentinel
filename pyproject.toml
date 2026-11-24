@@ -36,6 +36,12 @@ classifiers = [
 ]
 dependencies = []
 
+[project.urls]
+Homepage = "https://github.com/faizi-cybsec/LogSentinel"
+Repository = "https://github.com/faizi-cybsec/LogSentinel"
+Issues = "https://github.com/faizi-cybsec/LogSentinel/issues"
+Changelog = "https://github.com/faizi-cybsec/LogSentinel/blob/main/CHANGELOG.md"
+
 [project.scripts]
 logsentinel = "logsentinel.cli:main"
 
