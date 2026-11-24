@@ -102,7 +102,6 @@ PYTHONPATH=src python -m logsentinel analyze samples/cloud_events.jsonl --csv-ou
 ```
 ### Example HTML Incident Report
 
-Generate a shareable, dark-mode incident report with `--html-out`:
 
 ![LogSentinel HTML incident report](docs/html_report.png)
 
@@ -203,7 +202,26 @@ LogSentinel/
 ```bash
 python -m unittest discover -s tests -v
 ```
+## Limitations & Known Constraints
 
+LogSentinel is a lightweight triage tool, not a SIEM replacement. Be aware of these constraints:
+
+- **Syslog timestamps assume UTC and the current year.** Classic BSD `auth.log` lines (`Nov 24 23:10:05`) carry no year or timezone, so LogSentinel assumes UTC and the current year. Logs from other timezones or from a previous year can produce skewed time windows. ISO-8601 timestamps are handled correctly.
+- **Missing JSONL timestamps fall back to "now".** A cloud/audit event without a timestamp is stamped with the analysis time, which can distort `threshold` and `sequence` windows.
+- **Narrow auth.log coverage.** The parser recognizes SSH failed/accepted/invalid-user events, `sudo` commands, and `useradd`. Other PAM, `su`, or `sshd` message variants are skipped (the report shows the parsed/skipped line count).
+- **Combined Log Format only for web logs.** Custom Nginx/Apache log formats will not parse unless they match the Combined layout.
+- **Regex-based detection can produce false positives.** SQLi and path-traversal rules match request patterns and do not confirm that an attack succeeded. Vulnerability scanners run by your own team will trigger the recon rule.
+- **The bundled IOC feed is a small sample.** `feeds/default_iocs.json` contains demonstration entries, including RFC 5737 documentation ranges. For real use, supply and regularly refresh your own threat intelligence feed.
+- **Offline by design.** There is no live enrichment (GeoIP, reputation APIs, WHOIS).
+
+## Roadmap
+
+- [ ] Windows Event Log support (4625 failed logons, 4624 successes, 1102 log cleared)
+- [ ] Password spraying detection (one IP, many usernames, low attempts per user)
+- [ ] Log clearing / tampering detection (Linux and Windows)
+- [ ] Configurable timezone for syslog timestamps (`--tz`)
+- [ ] Custom web log format support
+- [ ] Optional MITRE ATT&CK Navigator layer export
 ---
 
 ## Contributing & Security
