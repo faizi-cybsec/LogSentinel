@@ -1,0 +1,23 @@
+{
+  "id": "LS-AUTH-002",
+  "title": "Potential SSH Account Compromise After Brute-Force",
+  "description": "Repeated failed SSH logins followed by a successful login from the same source IP.",
+  "severity": "CRITICAL",
+  "mitre_tactic": "Initial Access",
+  "mitre_technique": "T1078",
+  "rule_type": "sequence",
+  "formats": ["auth"],
+  "group_by": "source_ip",
+  "window_seconds": 300,
+  "min_first_count": 3,
+  "first_match": {
+    "action": ["ssh_login", "ssh_invalid_user"],
+    "outcome": "failure"
+  },
+  "then_match": {
+    "action": "ssh_login",
+    "outcome": "success"
+  },
+  "tags": ["ssh", "compromise", "correlation"],
+  "remediation": "Immediately isolate host, terminate active SSH sessions, rotate credentials, and inspect bash history/cron."
+}

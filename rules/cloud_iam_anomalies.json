@@ -1,0 +1,36 @@
+[
+  {
+    "id": "LS-CLOUD-001",
+    "title": "Cloud IAM Access Key Created",
+    "description": "A new programmatic IAM access key was created, a common persistence technique.",
+    "severity": "MEDIUM",
+    "mitre_tactic": "Persistence",
+    "mitre_technique": "T1098.001",
+    "rule_type": "match",
+    "formats": ["jsonl"],
+    "match": {
+      "action": "CreateAccessKey",
+      "outcome": "success"
+    },
+    "tags": ["cloud", "iam", "persistence"],
+    "remediation": "Verify key creation with the IAM principal owner; revoke unauthorized keys and rotate secrets."
+  },
+  {
+    "id": "LS-CLOUD-002",
+    "title": "Cloud Root Account Login Without MFA",
+    "description": "Successful root account console authentication without multi-factor authentication.",
+    "severity": "CRITICAL",
+    "mitre_tactic": "Initial Access",
+    "mitre_technique": "T1078.004",
+    "rule_type": "match",
+    "formats": ["jsonl"],
+    "match": {
+      "action": "ConsoleLogin",
+      "username": "root",
+      "outcome": "success",
+      "mfa_used": false
+    },
+    "tags": ["cloud", "root", "mfa"],
+    "remediation": "Immediately lock root console access, enable hardware MFA, and audit all CloudTrail events from this session."
+  }
+]

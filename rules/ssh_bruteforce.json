@@ -1,0 +1,19 @@
+{
+  "id": "LS-AUTH-001",
+  "title": "SSH Brute-Force Attack Detected",
+  "description": "Multiple failed SSH authentication attempts from a single source IP within a short window.",
+  "severity": "HIGH",
+  "mitre_tactic": "Credential Access",
+  "mitre_technique": "T1110.001",
+  "rule_type": "threshold",
+  "formats": ["auth"],
+  "match": {
+    "action": ["ssh_login", "ssh_invalid_user"],
+    "outcome": "failure"
+  },
+  "group_by": "source_ip",
+  "threshold": 5,
+  "window_seconds": 60,
+  "tags": ["ssh", "bruteforce", "linux"],
+  "remediation": "Block source IP at perimeter firewall/fail2ban, enforce key-based SSH auth, and disable root login."
+}

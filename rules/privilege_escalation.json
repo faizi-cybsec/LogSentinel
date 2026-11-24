@@ -1,0 +1,39 @@
+[
+  {
+    "id": "LS-PRIV-001",
+    "title": "Suspicious Sudo Privilege Escalation Command",
+    "description": "Privileged sudo execution of an interactive shell, shadow file read, or netcat utility.",
+    "severity": "HIGH",
+    "mitre_tactic": "Privilege Escalation",
+    "mitre_technique": "T1548.003",
+    "rule_type": "match",
+    "formats": ["auth"],
+    "match": {
+      "action": "sudo_exec",
+      "regex_any": [
+        "/bin/(ba)?sh",
+        "/etc/shadow",
+        "chmod\\s+\\+s",
+        "\\bnc\\b|\\bncat\\b",
+        "python3?\\s+-c"
+      ]
+    },
+    "tags": ["sudo", "privesc", "linux"],
+    "remediation": "Verify whether the sudo command was authorized by the user; audit /etc/sudoers and recent process trees."
+  },
+  {
+    "id": "LS-PRIV-002",
+    "title": "Local User Account Created",
+    "description": "A new local user account was created on the Linux host via useradd.",
+    "severity": "MEDIUM",
+    "mitre_tactic": "Persistence",
+    "mitre_technique": "T1136.001",
+    "rule_type": "match",
+    "formats": ["auth"],
+    "match": {
+      "action": "user_created"
+    },
+    "tags": ["persistence", "account-creation"],
+    "remediation": "Confirm account creation against IT change tickets; remove unauthorized accounts immediately."
+  }
+]

@@ -1,0 +1,28 @@
+{
+  "feed_name": "LogSentinel Default SOC Threat Intel Feed",
+  "updated": "2026-11-24",
+  "malicious_ips": {
+    "185.220.101.45": "Known SSH Brute-Force Botnet",
+    "45.155.205.99": "Automated Web Exploit Scanner",
+    "198.51.100.77": "Credential Stuffing Infrastructure"
+  },
+  "tor_exit_nodes": [
+    "185.220.101.45",
+    "104.244.76.13"
+  ],
+  "malicious_cidrs": [
+    {
+      "cidr": "203.0.113.0/24",
+      "label": "Simulated Adversary Range (RFC 5737)"
+    }
+  ],
+  "suspicious_user_agents": [
+    "sqlmap",
+    "nikto",
+    "gobuster",
+    "dirbuster",
+    "nuclei",
+    "masscan",
+    "hydra"
+  ]
+}
