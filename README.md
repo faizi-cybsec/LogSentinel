@@ -91,6 +91,12 @@ PYTHONPATH=src python -m logsentinel analyze samples/cloud_events.jsonl --csv-ou
 
   Severity Breakdown: CRITICAL=2  HIGH=1  MEDIUM=1  LOW=0
 
+### Example HTML Incident Report
+
+Generate a shareable, dark-mode incident report with `--html-out`:
+
+![LogSentinel HTML incident report](docs/html_report.png)
+
   PRIORITIZED INCIDENTS
   --------------------------------------------------------------------
   INC-0001 [CRITICAL] Risk=100/100 | SSH Brute-Force Attack Detected from 185.220.101.45
